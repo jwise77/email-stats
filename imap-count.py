@@ -20,6 +20,12 @@ def parse_mailbox(data):
     return (flags, separator.replace('"', ''), name.replace('"', ''))
 
 def fetch_headers():
+    # Based off this post:
+    # http://www.franzone.com/2012/11/29/counting-messages-in-imap-folders-in-python/
+    #
+    # Fetching headers in bulk:
+    # https://flowingdata.com/2014/05/07/downloading-your-email-metadata/
+
     # Get server information
     host = raw_input("Server (e.g. imap.gmail.com): ")
     user = raw_input("Username: ")
@@ -237,7 +243,3 @@ def process_data(data):
 if __name__ == "__main__":
     data = load_headers()
     process_data(data)
-
-# resp, raw_header = imap.fetch(num, '(BODY[header])')
-# header = email.message_from_string(raw_header)
-# time_parts = email.utils.parsedate(header['date'])
