@@ -1,5 +1,5 @@
 from imaplib import IMAP4_SSL
-import os, sys, traceback
+import os, sys, traceback, getpass
 from datetime import datetime
 from time import mktime
 import email
@@ -11,13 +11,6 @@ try:
 except:
     import pickle
 
-# Your IMAP Settings
-#host = 'outlook.office365.com'
-host = 'imap.gmail.com'
-user = 'username'
-password = 'password'
-folder = 'AllSent'
-
 imap = None
 pickle_fn = 'headers.cpkl'
 
@@ -27,6 +20,11 @@ def parse_mailbox(data):
     return (flags, separator.replace('"', ''), name.replace('"', ''))
 
 def fetch_headers():
+    # Get server information
+    host = raw_input("Server (e.g. imap.gmail.com): ")
+    user = raw_input("Username: ")
+    password = getpass.getpass("Password: ")
+    folder = raw_input("Folder (recursive): ")
     try:
         # Create the IMAP Client
         imap = IMAP4_SSL(host)
@@ -122,10 +120,12 @@ def process_data(data):
                             bins=ndays)
     dcenter = 0.5*(edges[:-1] + edges[1:])
     plt.plot(dateconv(dcenter), H, lw=0.5, color='k', label='daily')
-    plt.plot(dateconv(dcenter[6:]), running_mean(H,7),
-             lw=3, color='b', label='7-day')
-    plt.plot(dateconv(dcenter[29:]), running_mean(H,30),
-             lw=3, color='r', label='30-day')
+    if ndays > 7:
+        plt.plot(dateconv(dcenter[6:]), running_mean(H,7),
+                 lw=3, color='b', label='7-day')
+    if ndays > 30:
+        plt.plot(dateconv(dcenter[29:]), running_mean(H,30),
+                 lw=3, color='r', label='30-day')
     plt.xlabel('Time')
     plt.ylabel('Emails / day')
     plt.legend(loc='best')
