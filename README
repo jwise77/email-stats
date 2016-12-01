@@ -1,12 +1,8 @@
 email-stats: originally authored by John Wise (30 Nov 2016)
 ------------------------------------------------------------------------
 
-Fetches your sent mail through IMAP and calculates some time
-statistics about your email.
-
-By default, it will cache your sent email dates in the file,
-headers.cpkl.
-
+Fetches your mail through IMAP and calculates some time statistics.
+By default, it will cache your dates in the file, headers.cpkl.
 Assumes that your IMAP server uses SSL with port 993.
 
 Plots
