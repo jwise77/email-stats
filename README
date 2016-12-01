@@ -1,0 +1,18 @@
+email-stats: originally authored by John Wise (30 Nov 2016)
+------------------------------------------------------------------------
+
+Fetches your sent mail through IMAP and calculates some time
+statistics about your email.
+
+By default, it will cache your sent email dates in the file,
+headers.cpkl.
+
+Assumes that your IMAP server uses SSL with port 993.
+
+Plots
+1. Complete daily history with 7-day and 30-day running averages.
+2. Emails/day/hour versus hour in day
+3. Emails/day versus day of the week
+4. Emails/day versus date in month
+5. Emails/day versus week of the year
+6. Punchcard analysis: showing emails versus day and hour
